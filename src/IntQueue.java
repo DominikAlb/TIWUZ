@@ -7,12 +7,26 @@ public class IntQueue implements Queue<Integer> {
     private int count;
 
     IntQueue(int size) {
+        this.size = size;
+        arr = new int[size];
+        front = count = 0;
+        rear = -1;
     }
 
     IntQueue(IntQueue queue) {
+        arr = queue.getArr();
+        size = queue.getSize();
+        front = queue.getFront();
+        rear = queue.getRear();
+        count = queue.getCount();
     }
 
     IntQueue(IntQueue queue, int size) {
+        arr = queue.getArr();
+        this.size = size;
+        front = queue.getFront();
+        rear = queue.getRear();
+        count = queue.getCount();
     }
 
     @Override
