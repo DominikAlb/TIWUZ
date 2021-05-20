@@ -3,6 +3,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.EmptyStackException;
+
 public class QueueTest {
 
     @Rule
@@ -70,7 +72,7 @@ public class QueueTest {
     public void peekNegativeTest() {
         int size = 2;
         Queue<Integer> queue = new IntQueue(size);
-        expectedException.expect(NegativeArraySizeException.class);
+        expectedException.expect(EmptyStackException.class);
         queue.peek();
     }
 
@@ -93,7 +95,7 @@ public class QueueTest {
 
     @Test
     public void isEmptyTest() {
-        int size = 0;
+        int size = 1;
         IntQueue queue = new IntQueue(size);
         Assert.assertFalse(queue.isempty());
         size = 2;
@@ -117,8 +119,8 @@ public class QueueTest {
     @Test
     public void constructorMinusSizeTest() {
         int size = -1;
-        Queue<Integer> queue = new IntQueue(size);
         expectedException.expect(NegativeArraySizeException.class);
+        Queue<Integer> queue = new IntQueue(size);
         queue.enqueue(1);
     }
 

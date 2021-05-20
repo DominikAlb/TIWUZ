@@ -1,3 +1,5 @@
+import java.util.EmptyStackException;
+
 public class IntQueue implements Queue<Integer> {
 
     private int size;
@@ -7,6 +9,7 @@ public class IntQueue implements Queue<Integer> {
     private int count;
 
     IntQueue(int size) {
+        if (size < 0) throw new NegativeArraySizeException();
         this.size = size;
         arr = new int[size];
         front = count = 0;
@@ -31,27 +34,41 @@ public class IntQueue implements Queue<Integer> {
 
     @Override
     public int enqueue(Integer item) {
-        return 0;
+        if (isfull()) {
+            throw new IndexOutOfBoundsException();
+        }
+        rear = (rear + 1) % size;
+        arr[rear] = item;
+        count++;
+        return 1;
     }
 
     @Override
     public int dequeue() {
-        return 0;
+        if (isempty()) {
+            throw new NegativeArraySizeException();
+        }
+        front = (front + 1) % size;
+        count--;
+        return 1;
     }
 
     @Override
     public Integer peek() {
-        return null;
+        if (isempty()) {
+            throw new EmptyStackException();
+        }
+        return arr[front];
     }
 
     @Override
     public boolean isfull() {
-        return false;
+        return getCount() == getSize();
     }
 
     @Override
     public boolean isempty() {
-        return false;
+        return getCount() == 0;
     }
 
     private int[] getArr() {
