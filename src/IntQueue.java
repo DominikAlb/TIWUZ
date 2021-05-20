@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.EmptyStackException;
 
 public class IntQueue implements Queue<Integer> {
@@ -16,30 +17,24 @@ public class IntQueue implements Queue<Integer> {
         rear = -1;
     }
 
-    IntQueue(IntQueue queue) {
-        arr = queue.getArr();
-        size = queue.getSize();
-        front = queue.getFront();
-        rear = queue.getRear();
-        count = queue.getCount();
-    }
-
     IntQueue(IntQueue queue, int size) {
-        arr = queue.getArr();
+        arr = new int[size];
         this.size = size;
-        front = queue.getFront();
-        rear = queue.getRear();
-        count = queue.getCount();
+        front = count = 0;
+        rear = -1;
+        Arrays.stream(queue.getArr()).limit(size).forEach(this::enqueue);
     }
 
     @Override
     public int enqueue(Integer item) {
         if (isfull()) {
             throw new IndexOutOfBoundsException();
+        } else if (item == null) {
+            throw new NullPointerException();
         }
-        rear = (rear + 1) % size;
+        setRear(1);
         arr[rear] = item;
-        count++;
+        setCount(1);
         return 1;
     }
 
@@ -48,9 +43,9 @@ public class IntQueue implements Queue<Integer> {
         if (isempty()) {
             throw new NegativeArraySizeException();
         }
-        front = (front + 1) % size;
-        count--;
-        return 1;
+        setFront(1);
+        setCount(-1);
+        return arr[count];
     }
 
     @Override
@@ -89,5 +84,17 @@ public class IntQueue implements Queue<Integer> {
 
     private int getCount() {
         return count;
+    }
+
+    private void setCount(int count) {
+        this.count = this.count + count;
+    }
+
+    private void setFront(int front) {
+        this.front = (this.front + front) % getSize();
+    }
+
+    private void setRear(int rear) {
+        this.rear = (this.rear + rear) % getSize();
     }
 }

@@ -25,7 +25,7 @@ public class QueueTest {
         Queue<Integer> queue = new IntQueue(size);
         Assert.assertEquals(queue.enqueue(1), 1);
         Assert.assertEquals(queue.enqueue(2), 1);
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(NullPointerException.class);
         queue.enqueue(Integer.getInteger("Text"));
     }
 
@@ -35,7 +35,7 @@ public class QueueTest {
         Queue<Integer> queue = new IntQueue(size);
         Assert.assertEquals(queue.enqueue(1), 1);
         Assert.assertEquals(queue.enqueue(2), 1);
-        Assert.assertEquals(queue.enqueue(Integer.getInteger("2")), 1);
+        Assert.assertEquals(queue.enqueue(Integer.parseInt("2")), 1);
     }
 
     @Test
@@ -45,9 +45,9 @@ public class QueueTest {
         queue.enqueue(1);
         queue.enqueue(500);
         queue.enqueue(1000);
-        Assert.assertEquals(queue.dequeue(), 1);
-        Assert.assertEquals(queue.dequeue(), 500);
         Assert.assertEquals(queue.dequeue(), 1000);
+        Assert.assertEquals(queue.dequeue(), 500);
+        Assert.assertEquals(queue.dequeue(), 1);
     }
 
     @Test
@@ -65,6 +65,8 @@ public class QueueTest {
         queue.enqueue(5);
         Assert.assertEquals((int)queue.peek(), 5);
         queue.enqueue(12);
+        Assert.assertEquals((int)queue.peek(), 5);
+        queue.dequeue();
         Assert.assertEquals((int)queue.peek(), 12);
     }
 
@@ -89,23 +91,19 @@ public class QueueTest {
         Assert.assertTrue(queue.isfull());
         queue = new IntQueue(queue, 5);
         Assert.assertFalse(queue.isfull());
-        queue = new IntQueue(queue);
-        Assert.assertTrue(queue.isfull());
     }
 
     @Test
     public void isEmptyTest() {
         int size = 1;
         IntQueue queue = new IntQueue(size);
-        Assert.assertFalse(queue.isempty());
+        Assert.assertTrue(queue.isempty());
         size = 2;
         queue = new IntQueue(size);
         queue.enqueue(99);
-        Assert.assertTrue(queue.isempty());
+        Assert.assertFalse(queue.isempty());
         queue = new IntQueue(queue, 5);
-        Assert.assertTrue(queue.isempty());
-        queue = new IntQueue(queue);
-        Assert.assertTrue(queue.isempty());
+        Assert.assertFalse(queue.isempty());
     }
 
     @Test
@@ -126,13 +124,13 @@ public class QueueTest {
 
     @Test
     public void constructorCopyQueueTest() {
-        int size = 3;
+        int size = 2;
         IntQueue queue = new IntQueue(size);
         queue.enqueue(1);
         queue.enqueue(2);
-        IntQueue queue2 = new IntQueue(queue);
-        Assert.assertEquals(queue2.dequeue(), 1);
-        Assert.assertEquals(queue2.dequeue(), 2);
+        IntQueue queue2 = new IntQueue(queue, 3);
+        Assert.assertEquals( 2, queue2.dequeue());
+        Assert.assertEquals(1, queue2.dequeue());
     }
 
     @Test
@@ -151,15 +149,16 @@ public class QueueTest {
     public void endToEndTest() {
         int size = 100;
         IntQueue queue = new IntQueue(size);
-        queue = new IntQueue(queue);
-        queue = new IntQueue(queue, 1);
         Assert.assertTrue(queue.isempty());
+        Assert.assertFalse(queue.isfull());
+        queue = new IntQueue(queue, 101);
+        Assert.assertFalse(queue.isempty());
         Assert.assertFalse(queue.isfull());
         Assert.assertEquals(queue.enqueue(100), 1);
         Assert.assertFalse(queue.isempty());
         Assert.assertTrue(queue.isfull());
         Assert.assertEquals(queue.dequeue(), 100);
-        Assert.assertTrue(queue.isempty());
+        Assert.assertFalse(queue.isempty());
         Assert.assertFalse(queue.isfull());
     }
 
