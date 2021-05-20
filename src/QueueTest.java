@@ -139,6 +139,7 @@ public class QueueTest {
         IntQueue queue = new IntQueue(size);
         queue.enqueue(1);
         queue.enqueue(2);
+        Assert.assertTrue(queue.isfull());
         IntQueue queue2 = new IntQueue(queue, 5);
         queue2.enqueue(3);
         Assert.assertFalse(queue2.isfull());
@@ -162,6 +163,6 @@ public class QueueTest {
 
     @Test
     public void UITest() {
-
+        //TODO Zadadnie 2
     }
 }
