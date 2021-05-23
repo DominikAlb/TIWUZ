@@ -32,7 +32,7 @@ public class IntQueue implements Queue<Integer> {
         } else if (item == null) {
             throw new NullPointerException();
         }
-        setRear(1);
+        setRear();
         arr[rear] = item;
         setCount(1);
         return 1;
@@ -43,7 +43,7 @@ public class IntQueue implements Queue<Integer> {
         if (isempty()) {
             throw new NegativeArraySizeException();
         }
-        setFront(1);
+        setFront();
         setCount(-1);
         return arr[count];
     }
@@ -90,11 +90,11 @@ public class IntQueue implements Queue<Integer> {
         this.count = this.count + count;
     }
 
-    private void setFront(int front) {
-        this.front = (this.front + front) % getSize();
+    private void setFront() {
+        this.front = (this.front + 1) % getSize();
     }
 
-    private void setRear(int rear) {
-        this.rear = (this.rear + rear) % getSize();
+    private void setRear() {
+        this.rear = (this.rear + 1) % getSize();
     }
 }
