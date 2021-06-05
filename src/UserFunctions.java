@@ -1,8 +1,10 @@
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class UserFunctions implements InterfaceFunctions {
 
@@ -64,11 +66,27 @@ public class UserFunctions implements InterfaceFunctions {
     public void runBasicProgram() {
 
         System.out.println("Rozpoczynam podstawowy program");
+        try {
+            Random random = new Random();
+            int size = setSizeOfQueue();
+            queue = new IntQueue(size);
 
-        int size = setSizeOfQueue();
-        queue = new IntQueue(size);
-
-
+            isempty();
+            random.ints(size).forEach(this::enqueue);
+            TimeUnit.SECONDS.sleep(1);
+            toString();
+            isfull();
+            TimeUnit.SECONDS.sleep(1);
+            IntStream.range(0, size).forEach(x -> dequeue());
+            TimeUnit.SECONDS.sleep(1);
+            toString();
+            isfull();
+            isempty();
+            TimeUnit.SECONDS.sleep(1);
+            System.out.println("Zakonczenie programu");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -77,6 +95,28 @@ public class UserFunctions implements InterfaceFunctions {
         System.out.println("Rozpoczynam rozszerzony program");
         int size = setSizeOfQueue();
         queue = new IntQueue(size);
+        Random random = new Random();
+        int length = random.nextInt(20) + 10;
+        int i = 1;
+        while (i != length) {
+            if (queue.isempty()) {
+                enqueue(random.nextInt(10000) + 1);
+            } else if (queue.isfull()) {
+                dequeue();
+            } else {
+                int option = random.nextInt(5);
+                switch (option) {
+                    case 0 -> enqueue(random.nextInt(10000) + 1);
+                    case 1 -> dequeue();
+                    case 2 -> peek();
+                    case 3 -> isempty();
+                    case 4 -> isfull();
+                }
+            }
+            if (i % 5 == 0) toString();
+            i++;
+        }
+        System.out.println("Zakonczenie programu");
     }
 
     private int setSizeOfQueue() throws IllegalArgumentException {

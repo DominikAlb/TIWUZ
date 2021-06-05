@@ -191,7 +191,7 @@ public class QueueTest {
 
     @Test
     public void basicProgram() {
-        String data = "20";
+        String data = "3";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner scanner = new Scanner(System.in);
         UserFunctions userFunctions = new UserFunctions(scanner);
@@ -204,7 +204,7 @@ public class QueueTest {
 
     @Test
     public void extendedProgram() {
-        String data = "10";
+        String data = "5";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner scanner = new Scanner(System.in);
         UserFunctions userFunctions = new UserFunctions(scanner);
@@ -212,7 +212,6 @@ public class QueueTest {
 
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         interfaceFunctions.runExtendedProgram();
-        System.out.println(interfaceFunctions.toString());
         Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,\\s]]+\\].*"));
     }
 }
