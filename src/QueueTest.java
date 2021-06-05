@@ -3,7 +3,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.ByteArrayInputStream;
 import java.util.EmptyStackException;
+import java.util.Scanner;
 
 public class QueueTest {
 
@@ -164,6 +166,52 @@ public class QueueTest {
 
     @Test
     public void UITest() {
-        //TODO Zadadnie 2
+        String data = "test data";
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        Scanner scanner = new Scanner(System.in);
+        UserFunctions userFunctions = new UserFunctions(scanner);
+        InterfaceFunctions interfaceFunctions = new FunctionTrigger(userFunctions);
+
+        expectedException.expect(IllegalArgumentException.class);
+        interfaceFunctions.runMenu();
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,]]+[0-9]\\].*"));
+    }
+
+    @Test
+    public void setSizeNegative() {
+        String data = "test data";
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        Scanner scanner = new Scanner(System.in);
+        UserFunctions userFunctions = new UserFunctions(scanner);
+        InterfaceFunctions interfaceFunctions = new FunctionTrigger(userFunctions);
+
+        expectedException.expect(IllegalArgumentException.class);
+        interfaceFunctions.runBasicProgram();
+    }
+
+    @Test
+    public void basicProgram() {
+        String data = "test data";
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        Scanner scanner = new Scanner(System.in);
+        UserFunctions userFunctions = new UserFunctions(scanner);
+        InterfaceFunctions interfaceFunctions = new FunctionTrigger(userFunctions);
+
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        interfaceFunctions.runBasicProgram();
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,]]+[0-9]\\].*"));
+    }
+
+    @Test
+    public void extendedProgram() {
+        String data = "test data";
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        Scanner scanner = new Scanner(System.in);
+        UserFunctions userFunctions = new UserFunctions(scanner);
+        InterfaceFunctions interfaceFunctions = new FunctionTrigger(userFunctions);
+
+        System.setIn(new ByteArrayInputStream(data.getBytes()));
+        interfaceFunctions.runExtendedProgram();
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,]]+[0-9]\\].*"));
     }
 }
