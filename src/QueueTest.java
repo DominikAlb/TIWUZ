@@ -166,7 +166,7 @@ public class QueueTest {
 
     @Test
     public void UITest() {
-        String data = "test data";
+        String data = "1 3 2 4 2 0";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner scanner = new Scanner(System.in);
         UserFunctions userFunctions = new UserFunctions(scanner);
@@ -179,7 +179,7 @@ public class QueueTest {
 
     @Test
     public void setSizeNegative() {
-        String data = "test data";
+        String data = "-5 test";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner scanner = new Scanner(System.in);
         UserFunctions userFunctions = new UserFunctions(scanner);
@@ -191,7 +191,7 @@ public class QueueTest {
 
     @Test
     public void basicProgram() {
-        String data = "test data";
+        String data = "20";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner scanner = new Scanner(System.in);
         UserFunctions userFunctions = new UserFunctions(scanner);
@@ -199,12 +199,12 @@ public class QueueTest {
 
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         interfaceFunctions.runBasicProgram();
-        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,]]+[0-9]\\].*"));
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,\\s]]+\\].*"));
     }
 
     @Test
     public void extendedProgram() {
-        String data = "test data";
+        String data = "10";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         Scanner scanner = new Scanner(System.in);
         UserFunctions userFunctions = new UserFunctions(scanner);
@@ -212,6 +212,7 @@ public class QueueTest {
 
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         interfaceFunctions.runExtendedProgram();
-        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,]]+[0-9]\\].*"));
+        System.out.println(interfaceFunctions.toString());
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,\\s]]+\\].*"));
     }
 }

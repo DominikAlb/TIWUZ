@@ -37,4 +37,9 @@ public class FunctionTrigger implements InterfaceFunctions {
     public void runExtendedProgram() {
         interfaceFunctions.runExtendedProgram();
     }
+
+    @Override
+    public String toString() {
+        return interfaceFunctions.toString();
+    }
 }

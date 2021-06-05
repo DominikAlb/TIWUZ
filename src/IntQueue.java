@@ -68,7 +68,7 @@ public class IntQueue implements Queue<Integer> {
 
     @Override
     public String toString() {
-        return Arrays.toString(getArr()) + "\nMaksymalna wielkosc: " + getSize() + "\nObecna wielkosc: " + getCount();
+        return Arrays.toString(getArr()) + " - Maksymalna wielkosc: " + getSize() + " - Obecna wielkosc: " + getCount();
     }
 
     private int[] getArr() {
