@@ -199,7 +199,7 @@ public class QueueTest {
 
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         interfaceFunctions.runBasicProgram();
-        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,\\s]]+\\].*"));
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[-?[0-9]+[,\\s]]+\\].*"));
     }
 
     @Test
@@ -212,6 +212,6 @@ public class QueueTest {
 
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         interfaceFunctions.runExtendedProgram();
-        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[[0-9]+[,\\s]]+\\].*"));
+        Assert.assertTrue(interfaceFunctions.toString().matches("^\\[[-?[0-9]+[,\\s]]+\\].*"));
     }
 }
